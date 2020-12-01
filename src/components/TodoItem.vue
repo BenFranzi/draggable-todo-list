@@ -1,9 +1,9 @@
 <template>
   <li
       draggable
-      @dragstart="onDrag"
+      @dragstart="$emit('onDrag', item.id)"
       @dragover.prevent
-      @drop="onDrop"
+      @drop="$emit('onDrop', item.id)"
   >
     {{ item.message }}<button @click="remove(item.id)">x</button>
   </li>
@@ -15,21 +15,14 @@ import { mapActions } from 'vuex';
 export default {
   name: 'TodoItem',
   props: ['item'],
-  methods: {
-    ...mapActions(['remove']),
-    onDrag() {
-      this.$emit('onDrag', this.item.id);
-    },
-    onDrop() {
-      this.$emit('onDrop', this.item.id);
-    }
-  }
-}
+  methods: mapActions(['remove'])
+};
 </script>
 
 <style scoped>
 li {
   display: flex;
+  align-items: center;
   cursor: pointer;
   background-color: white;
   padding: 8px 16px;
