@@ -1,13 +1,15 @@
 <template>
   <div>
     <ul>
-      <TodoItem
-          v-for="item in getItems"
-          :key="item.id"
-          :item="item"
-          @onDrag="setDragging"
-          @onDrop="handleDrop"
-      />
+      <transition-group name="todos">
+        <TodoItem
+            v-for="item in getItems"
+            :key="item.id"
+            :item="item"
+            @onDrag="setDragging"
+            @onDrop="handleDrop"
+        />
+      </transition-group>
     </ul>
     <TodoInput/>
   </div>
@@ -44,12 +46,18 @@ export default {
 
 <style scoped>
 
-  div {
-    max-width: 365px;
-  }
+div {
+  max-width: 365px;
+}
 
-  ul {
-    list-style: none;
-    padding: 0;
-  }
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.todos-move {
+  transition: transform .2s;
+}
+
+
 </style>
