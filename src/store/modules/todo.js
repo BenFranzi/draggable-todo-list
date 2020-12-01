@@ -1,10 +1,12 @@
+import $services from '@/services';
+
 const state = {
   items: [
-      {id: '1', message: 'one', isCompleted: false},
-    {id: '2', message: 'two', isCompleted: false},
-    {id: '3', message: 'three', isCompleted: false},
-    {id: '4', message: 'four', isCompleted: false},
-    {id: '5', message: 'five', isCompleted: false},
+      {id: '1', message: 'one local', isCompleted: false},
+    {id: '2', message: 'two local', isCompleted: false},
+    {id: '3', message: 'three local', isCompleted: false},
+    {id: '4', message: 'four local', isCompleted: false},
+    {id: '5', message: 'five local', isCompleted: false},
   ] // {id: string, message: string, isCompleted: boolean}
 };
 
@@ -13,6 +15,10 @@ const getters = {
 };
 
 const actions = {
+  async fetch({commit}) {
+    const response = await $services.todo.getAll();
+    commit('setAll', response.data || []);
+  },
   add: ({commit}, message) => {
     const item = {
       id: Math.random().toString(36).substr(2, 9),
@@ -33,6 +39,9 @@ const actions = {
 };
 
 const mutations = {
+  setAll: (items) => {
+    state.items = items;
+  },
   add: (state, item) => {
     state.items.push(item);
   },
@@ -57,6 +66,7 @@ const mutations = {
 };
 
 export default {
+  namespaced: true,
   state,
   getters,
   actions,

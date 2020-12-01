@@ -21,6 +21,7 @@ import TodoItem from '@/components/TodoItem';
 import TodoInput from '@/components/TodoInput';
 
 export default {
+  name: 'TodoList',
   components: {
     TodoInput,
     TodoItem
@@ -30,9 +31,9 @@ export default {
       draggedId: null
     }
   },
-  computed: mapGetters(['getItems']),
+  computed: mapGetters({getItems: 'todo/getItems'}),
   methods: {
-    ...mapActions(['setPosition']),
+    ...mapActions({setPosition: 'todo/setPosition'}),
     setDragging(id) {
       this.draggedId = id;
     },

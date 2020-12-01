@@ -15,7 +15,7 @@ import { mapActions } from 'vuex';
 export default {
   name: 'TodoItem',
   props: ['item'],
-  methods: mapActions(['remove'])
+  methods: mapActions({remove: 'todo/remove'})
 };
 </script>
 
